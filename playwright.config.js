@@ -1,3 +1,4 @@
+// playwright.config.js (упрощенный)
 const { defineConfig, devices } = require('@playwright/test')
 
 module.exports = defineConfig({
@@ -17,10 +18,4 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'npm run start-prod',
-    url: 'http://localhost:5000',
-    reuseExistingServer: false,
-    timeout: 120 * 1000,
-  },
 })

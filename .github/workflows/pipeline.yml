@@ -1,4 +1,4 @@
-name: Deploymeent pipeline
+name: Simple CI/CD Pipeline
 
 on:
   push:
@@ -6,18 +6,38 @@ on:
       - main
 
 jobs:
-  simple_deployment_pipeline:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      
       - name: Install dependencies
-        run: npm install
-      - name: Check style
+        run: npm ci
+      
+      - name: Lint
         run: npm run eslint
+      
+      - name: Run unit tests
+        run: npm run test
+      
       - name: Build
         run: npm run build
-      - name: Testing
-        run: npm run test
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      
+      - name: Run e2e tests
+        run: |
+          # Запускаем сервер в фоне
+          npm run start-prod &
+          SERVER_PID=$!
+          # Даем серверу время на запуск
+          sleep 15
+          # Запускаем тесты
+          npm run test:e2e
+          # Останавливаем сервер
+          kill $SERVER_PID

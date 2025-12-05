@@ -32,12 +32,8 @@ jobs:
       
       - name: Run e2e tests
         run: |
-          # Запускаем сервер в фоне
           npm run start-prod &
           SERVER_PID=$!
-          # Даем серверу время на запуск
           sleep 15
-          # Запускаем тесты
           npm run test:e2e
-          # Останавливаем сервер
           kill $SERVER_PID

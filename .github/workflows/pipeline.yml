@@ -26,11 +26,8 @@ jobs:
       
       - name: Run e2e tests
         run: |
-          # Запускаем сервер в фоне
           npm run start-prod &
-          # Ждем пока сервер запустится
           sleep 15
-          # Запускаем тесты
           npx playwright test
       
       - name: Upload Playwright report

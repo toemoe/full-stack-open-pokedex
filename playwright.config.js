@@ -8,6 +8,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
+    // УДАЛИТЬ baseURL отсюда!
     trace: 'on-first-retry',
   },
   projects: [

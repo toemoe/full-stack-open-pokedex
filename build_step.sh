@@ -1,17 +1,12 @@
 #!/bin/bash
 set -e
 
-echo "=== Node.js версии ==="
-node --version
-npm --version
+echo "Node version:"
+node -v
+npm -v
 
-echo "=== Установка ВСЕХ зависимостей ==="
+echo "Installing dependencies"
 npm ci --no-audit
 
-echo "=== Сборка фронтенда ==="
+echo "Building frontend"
 npm run build
-
-echo "=== Проверка структуры ==="
-ls -la
-
-echo "=== Сборка завершена ==="

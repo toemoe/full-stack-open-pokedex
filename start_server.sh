@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
 
-echo "=== Настройка окружения ==="
-PORT=${PORT:-3000}
-NODE_ENV=${NODE_ENV:-production}
+export NODE_ENV=production
+PORT=${PORT:-10000}
 
-echo "Порт: $PORT"
-echo "Окружение: $NODE_ENV"
+echo "Environment production"
+echo "Port = $PORT"
 
-echo "=== Запуск Express сервера ==="
-node app.js
+exec node app.js

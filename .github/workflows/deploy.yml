@@ -56,7 +56,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
     
     needs: [simple_deployment_pipeline, hello-world]
     
@@ -81,7 +81,8 @@ jobs:
 
   tag_release:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+    
     needs: [simple_deployment_pipeline, deploy]
     
     steps:
